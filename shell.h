@@ -11,5 +11,6 @@
 void display_prompt(void);
 ssize_t read_command(char **buffer, size_t *bufsize);
 void execute_command(char *command, char *prog_name);
+char *trim_whitespace(char *str);
 
 #endif
