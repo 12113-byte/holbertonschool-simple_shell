@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 void display_prompt(void);
 ssize_t read_command(char **buffer, size_t *bufsize);

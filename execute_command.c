@@ -1,9 +1,13 @@
 #include "shell.h"
 
+
+extern char **environ;
+
 void execute_command(char *command, char *prog_name)
 {
 	pid_t pid;
 	char *argv[2];
+
 
         /* creates a copy of the current process, returns -1 on error */
 	pid = fork();

@@ -12,12 +12,13 @@ int main(int ac, char **av)
  * isatty(STDIN_FILENO):
  * Returns 1 if STDIN is connected to a terminal;
  * Returns 0 if input comes from a pipe or file
+ */
 	interactive = isatty(STDIN_FILENO);
-*/
+
 	while (1)
 	{
 		if (interactive)
-			print_prompt();
+			display_prompt();
 
 		nread = read_command(&buffer, &bufsize);
 
