@@ -1,7 +1,11 @@
 #include "shell.h"
 
 /**
+ * read_command - Reads a command line from stdin
+ * @buffer: Pointer to buffer pointer
+ * @bufsize: Pointer to buffer size
  *
+ * Return: Number of characters read, or -1 on EOF/error
  */
 ssize_t read_command(char **buffer, size_t *bufsize)
 {
