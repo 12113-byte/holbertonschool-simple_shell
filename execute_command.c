@@ -11,7 +11,7 @@ extern char **environ;
 void execute_command(char *command, char *prog_name)
 {
 	pid_t pid;
-	char *argv[64];
+	char **argv;
 
 	argv = tokenize_command(command);
 	if (argv == NULL)
