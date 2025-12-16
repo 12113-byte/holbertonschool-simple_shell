@@ -7,6 +7,9 @@ int main(int ac, char **av)
 	ssize_t nread;
 	int interactive;
 
+	char *token;
+	char *delim = " ";
+
 	(void)ac;
 /**
  * isatty(STDIN_FILENO):
@@ -21,6 +24,14 @@ int main(int ac, char **av)
 			display_prompt();
 
 		nread = read_command(&buffer, &bufsize);
+		token = strtok(buffer, delim);
+
+		while (token != NULL)
+		{
+			printf("%s\n", token);
+			token = strtok(NULL, delim);
+		}
+
 
                 /* EOF detected or Ctrl+D pressed */
 		if (nread == -1)
