@@ -28,9 +28,6 @@ char *path_check(char *command)
 	path = get_path();
 	if (!path || path[0] == '\0')  /* PATH doesn't exist or is empty */
 	{
-		/* Still try current directory */
-		if (access(command, X_OK) == 0)
-			return (strdup(command));
 		return (NULL);
 	}
 
