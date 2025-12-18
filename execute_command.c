@@ -25,7 +25,7 @@ int execute_command(char *command, char *prog_name)
 	if (strcmp(argv[0], "exit") == 0)
 	{
 		free_tokens(argv);
-		exit(0);
+		exit(1);
 	}
 
 	/* Check if command exists before forking */
