@@ -20,11 +20,22 @@ void execute_command(char *command, char *prog_name)
 		return;
 	}
 
+	/* Check if command exists before forking */
+	full_path = path_check(argv[0]);
+	if (full_path == NULL)
+	{
+		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
+		free_tokens(argv);
+                /* status code 127 = "command not found" */
+		exit(127);
+	}
+
 	/* creates a copy of the current process, returns -1 on error */
 	pid = fork();
 	if (pid == -1)
 	{
 		perror(prog_name);
+		free(full_path);
 		free_tokens(argv);
 		exit(EXIT_FAILURE);
 	}
@@ -32,14 +43,6 @@ void execute_command(char *command, char *prog_name)
 	/* only child enters this block */
 	if (pid == 0)
 	{
-		full_path = path_check(argv[0]);
-		if (full_path == NULL)
-		{
-			fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
-			free_tokens(argv);
-			/* status code 127 = "command not found" */
-			exit(127);
-		}
 		execve(full_path, argv, environ);
 		perror("Failed to execute program");
 		free(full_path);
@@ -50,6 +53,6 @@ void execute_command(char *command, char *prog_name)
 	/* parent needs to wait() for the child to finish,
 	   then display the prompt again */
 	waitpid(pid, NULL, 0);
+	free(full_path);
 	free_tokens(argv);
 }
-
