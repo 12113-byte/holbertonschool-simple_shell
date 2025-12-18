@@ -41,7 +41,7 @@ char *path_check(char *command)
 			free(path_copy);
 			return (NULL);
 		}
-		sprintf(full_path,strlen(dir) + strlen(command) + 2,
+		sprintf(full_path, strlen(dir) + strlen(command) + 2,
 				"%s/%s", dir, command);
 
 		if (access(full_path, X_OK) == 0)
