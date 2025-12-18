@@ -15,11 +15,12 @@ void execute_command(char *command, char *prog_name)
 	char *full_path;
 
 	argv = tokenize_command(command);
-	if (argv == NULL)
+	if (argv == NULL || argv[0] == NULL)
+	{
 		return;
+	}
 
-
-        /* creates a copy of the current process, returns -1 on error */
+	/* creates a copy of the current process, returns -1 on error */
 	pid = fork();
 	if (pid == -1)
 	{
@@ -28,32 +29,27 @@ void execute_command(char *command, char *prog_name)
 		exit(EXIT_FAILURE);
 	}
 
-        /* only child enters this block */
+	/* only child enters this block */
 	if (pid == 0)
 	{
-        full_path = path_check(argv);
-	if (full_path == NULL)
-	{
-		perror("Command not found");
-		exit(1);
-	}
-		execve(full_path, &argv, environ);
-
-		if (execve(full_path, &argv, environ) == -1)
+		full_path = path_check(argv);
+		if (full_path == NULL)
 		{
-			perror("Failed to execute the program");
-			exit(EXIT_FAILURE);
+			perror("Command not found");
+			free_tokens(argv);
+			/* status code 127 = "command not found" */
+			exit(127);
 		}
-		/* child needs to run execve() to become the new program */
-		/*execve(argv[0], argv, environ);
-		perror(prog_name);
-		free_tokens(argv); */
-        /* Status code 127 = "command not found"
-		exit(127); */
+		execve(full_path, argv, environ);
+		perror("Failed to execute program");
+		free(full_path);
+		free_tokens(argv);
+		exit(EXIT_FAILURE);
 	}
 
-        /* parent needs to wait() for the child to finish,
-        then display the prompt again */
-	wait(NULL);
+	/* parent needs to wait() for the child to finish,
+	   then display the prompt again */
+	waitpid(pid, NULL, 0);
 	free_tokens(argv);
 }
+
