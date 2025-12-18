@@ -32,7 +32,7 @@ void execute_command(char *command, char *prog_name)
 	/* only child enters this block */
 	if (pid == 0)
 	{
-		full_path = path_check(argv);
+		full_path = path_check(argv[0]);
 		if (full_path == NULL)
 		{
 			perror("Command not found");
