@@ -26,8 +26,7 @@ void execute_command(char *command, char *prog_name)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
 		free_tokens(argv);
-                /* status code 127 = "command not found" */
-		exit(127);
+		return;
 	}
 
 	/* creates a copy of the current process, returns -1 on error */
