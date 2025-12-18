@@ -14,5 +14,7 @@ void execute_command(char *command, char *prog_name);
 char *trim_whitespace(char *str);
 char **tokenize_command(char *command);
 void free_tokens(char **tokens);
+char *get_path(void);
+char *path_check(char *command);
 
 #endif

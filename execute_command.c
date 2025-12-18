@@ -12,6 +12,7 @@ void execute_command(char *command, char *prog_name)
 {
 	pid_t pid;
 	char **argv;
+	char *full_path;
 
 	argv = tokenize_command(command);
 	if (argv == NULL)
@@ -30,12 +31,25 @@ void execute_command(char *command, char *prog_name)
         /* only child enters this block */
 	if (pid == 0)
 	{
-        /* child needs to run execve() to become the new program */
-		execve(argv[0], argv, environ);
+        full_path = path_check(argv);
+	if (full_path == NULL)
+	{
+		perror("Command not found");
+		exit(1);
+	}
+		execve(full_path, &argv, environ);
+
+		if (execve(full_path, &argv, environ) == -1)
+		{
+			perror("Failed to execute the program");
+			exit(EXIT_FAILURE);
+		}
+		/* child needs to run execve() to become the new program */
+		/*execve(argv[0], argv, environ);
 		perror(prog_name);
-		free_tokens(argv);
-        /* Status code 127 = "command not found" */
-		exit(127);
+		free_tokens(argv); */
+        /* Status code 127 = "command not found"
+		exit(127); */
 	}
 
         /* parent needs to wait() for the child to finish,
