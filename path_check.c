@@ -10,7 +10,14 @@ extern char **environ;
 char *path_check(char *command)
 {
 	char *path, *path_copy, *dir, *full_path;
-       
+	if (command == NULL)
+	{
+		return (NULL);
+	}
+	if (strchr(command, '/'))
+	{
+		return (strdup(command));
+	}	
 	path = get_path();
 	if (!path)
 	{
@@ -29,7 +36,13 @@ char *path_check(char *command)
 	while (dir != NULL)
 	{
 		full_path = malloc(strlen(dir) + strlen(command) + 2);
-		sprintf(full_path, "%s/%s", dir, command);
+		if (full_path == NULL)
+		{
+			free(path_copy);
+			return (NULL);
+		}
+		sprintf(full_path,strlen(dir) + strlen(command) + 2,
+				"%s/%s", dir, command);
 
 		if (access(full_path, X_OK) == 0)
 		{
