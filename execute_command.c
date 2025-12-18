@@ -24,6 +24,7 @@ int execute_command(char *command, char *prog_name)
 	/* built-in exit */
 	if (strcmp(argv[0], "exit") == 0)
 	{
+		free_tokens(argv[0]);
 		free_tokens(argv);
 		exit(0);
 	}
