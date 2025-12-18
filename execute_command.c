@@ -20,6 +20,13 @@ int execute_command(char *command, char *prog_name)
 	{
 		return (0);
 	}
+	
+	/* built-in exit */
+	if (strcmp(argv[0], "exit") == 0)
+	{
+		free_tokens(argv);
+		exit(0);
+	}
 
 	/* Check if command exists before forking */
 	full_path = path_check(argv[0]);
