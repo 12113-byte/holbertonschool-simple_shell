@@ -13,6 +13,7 @@ int main(int ac, char **av)
 	size_t bufsize = 0;
 	ssize_t nread;
 	int interactive;
+	int exit_status = 0; /* Track exit status */
 
 	(void)ac;
 /**
@@ -39,9 +40,9 @@ int main(int ac, char **av)
 		}
 
 		if (buffer[0] != '\0')
-			execute_command(buffer, av[0]);
+			exit_status = execute_command(buffer, av[0]);
 	}
 
 	free(buffer);
-	return (0);
+	return (exit_status);
 }

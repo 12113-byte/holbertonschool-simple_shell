@@ -8,16 +8,17 @@
 
 extern char **environ;
 
-void execute_command(char *command, char *prog_name)
+int execute_command(char *command, char *prog_name)
 {
 	pid_t pid;
 	char **argv;
 	char *full_path;
+	int status;
 
 	argv = tokenize_command(command);
 	if (argv == NULL || argv[0] == NULL)
 	{
-		return;
+		return (0);
 	}
 
 	/* Check if command exists before forking */
@@ -26,7 +27,7 @@ void execute_command(char *command, char *prog_name)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
 		free_tokens(argv);
-		return;
+		return (127); /* Return 127 for command not found */
 	}
 
 	/* creates a copy of the current process, returns -1 on error */
@@ -51,7 +52,13 @@ void execute_command(char *command, char *prog_name)
 
 	/* parent needs to wait() for the child to finish,
 	   then display the prompt again */
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 	free(full_path);
 	free_tokens(argv);
+
+	/* Return child's exit status */
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+
+	return (0);
 }
