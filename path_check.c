@@ -10,17 +10,27 @@ extern char **environ;
 char *path_check(char *command)
 {
 	char *path, *path_copy, *dir, *full_path;
+
 	if (command == NULL)
 	{
 		return (NULL);
 	}
+
+	/* If command contains '/', it's a path - check if executable */
 	if (strchr(command, '/'))
 	{
-		return (strdup(command));
-	}	
+		if (access(command, X_OK) == 0)
+			return (strdup(command));
+		return (NULL);
+	}
+
+	/* Try to get PATH */
 	path = get_path();
-	if (!path)
+	if (!path || path[0] == '\0')  /* PATH doesn't exist or is empty */
 	{
+		/* Still try current directory */
+		if (access(command, X_OK) == 0)
+			return (strdup(command));
 		return (NULL);
 	}
 
@@ -56,4 +66,3 @@ char *path_check(char *command)
 	free(path_copy);
 	return (NULL);
 }
-
