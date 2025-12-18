@@ -35,7 +35,7 @@ void execute_command(char *command, char *prog_name)
 		full_path = path_check(argv[0]);
 		if (full_path == NULL)
 		{
-			perror("Command not found");
+			fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
 			free_tokens(argv);
 			/* status code 127 = "command not found" */
 			exit(127);
