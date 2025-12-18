@@ -13,7 +13,6 @@ void execute_command(char *command, char *prog_name)
 	pid_t pid;
 	char **argv;
 	char *full_path;
-	int status;
 
 	argv = tokenize_command(command);
 	if (argv == NULL || argv[0] == NULL)
@@ -50,11 +49,7 @@ void execute_command(char *command, char *prog_name)
 
 	/* parent needs to wait() for the child to finish,
 	   then display the prompt again */
-	waitpid(pid, &status, 0);
+	waitpid(pid, NULL, 0);
 	free_tokens(argv);
-	if (WIFEXITED(status))
-	{
-		exit(WEXITSTATUS(status));
-	}
 }
 
