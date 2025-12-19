@@ -21,7 +21,7 @@ int execute_command(char *command, char *prog_name, char **env)
 		free(command_copy);
 		return (0);
 	}
-	full_path = path_check(argv[0], env); /* check if command exits before forking*/
+	full_path = path_check(argv[0], env);/*check if command exits before forking*/
 	if (full_path == NULL)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
@@ -41,12 +41,7 @@ int execute_command(char *command, char *prog_name, char **env)
 	}
 	if (pid == 0) /* only child enters this block */
 	{
-		execve(full_path, argv, env);
-		perror(argv[0]);
-		free(full_path);
-		free_tokens(argv);
-		free(command_copy);
-		exit(EXIT_FAILURE);
+		run_child(full_path, argv, env, prog_name, command_copy);
 	}
 	/*parent needs to wait for child to finish, then display the prompt again*/
 	waitpid(pid, &status, 0);

@@ -21,5 +21,6 @@ char *get_path(char **env);
 char *path_check(char *command, char **env);
 int exit_built_in(char *command);
 int env_built_in(char *command, char **env);
+void run_child(char *full_path, char **argv, char **env, char *prog_name, char *command_copy);
 
 #endif
