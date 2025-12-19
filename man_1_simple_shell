@@ -1,0 +1,110 @@
+.TH SIMPLE_SHELL 1 "December 2025" "1.0" "Simple Shell Manual"
+
+.SH NAME
+simple_shell \- simple UNIX command line interpreter
+
+.SH SYNOPSIS
+.B simple_shell
+.br
+.B echo
+\fI"command"\fR |
+.B simple_shell
+
+.SH DESCRIPTION
+.B simple_shell
+is a simple UNIX command line interpreter that reads commands from standard input and executes them. It provides a basic interactive shell environment similar to
+.BR sh (1).
+The shell can execute commands found in directories listed in the PATH environment variable, as well as commands specified with absolute or relative paths.
+
+.SH USAGE
+The shell works in both interactive and non-interactive mode. In interactive mode, it displays a prompt ":) " and waits for user input. In non-interactive mode, it reads commands from a pipe or file.
+
+.SH BUILT-IN COMMANDS
+.TP
+.B exit
+Exit the shell with status 0.
+.TP
+.B env
+Print the current environment variables.
+
+.SH COMMAND EXECUTION
+When a command is entered, the shell:
+.IP 1. 3
+Searches for the command in PATH directories
+.IP 2. 3
+If found, executes the command in a child process
+.IP 3. 3
+Waits for the command to complete
+.IP 4. 3
+Displays the prompt again (interactive mode)
+
+.SH PATH RESOLUTION
+Commands without a slash (/) are searched for in the directories listed in the PATH environment variable. Commands with a slash are treated as absolute or relative paths.
+
+.SH RETURN VALUE
+The shell returns the exit status of the last executed command. If a command is not found, it returns 127.
+
+.SH ERROR HANDLING
+If a command cannot be found, the shell prints an error message in the format:
+.RS
+.nf
+simple_shell: 1: command_name: not found
+.fi
+.RE
+and returns exit status 127.
+
+.SH EXAMPLES
+.PP
+Interactive mode:
+.RS
+.nf
+$ ./simple_shell
+:) ls
+file1 file2
+:) pwd
+/home/user
+:) exit
+$
+.fi
+.RE
+
+.PP
+Non-interactive mode:
+.RS
+.nf
+$ echo "ls" | ./simple_shell
+file1 file2
+$ cat commands.txt | ./simple_shell
+.fi
+.RE
+
+.PP
+Command not found:
+.RS
+.nf
+$ ./simple_shell
+:) /bin/ls
+file1 file2
+:) invalidcommand
+simple_shell: 1: invalidcommand: not found
+:) exit
+$
+.fi
+.RE
+
+.SH ENVIRONMENT
+.TP
+.B PATH
+Colon-separated list of directories to search for executable files.
+
+.SH FILES
+None
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHORS
+See AUTHORS file in the repository.
+
+.SH SEE ALSO
+sh(1), bash(1)
