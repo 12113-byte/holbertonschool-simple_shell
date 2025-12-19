@@ -1,5 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
+#define BUILTIN_EXIT 1
+#define BUILTIN_NONE 0
 
 #include <stdio.h>
 #include <stddef.h>

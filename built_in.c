@@ -1,6 +1,4 @@
 #include "shell.h"
-#define BUILTIN_EXIT 1
-#define BUILTIN_NONE 0
 
 /**
  * exit_built_in -
