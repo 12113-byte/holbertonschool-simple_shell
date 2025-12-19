@@ -2,6 +2,7 @@
 
 Simple Shell is a simplified version of a Unix shell, supporting basic command execution and built-in commands like exit, and PATH resolution with ls and env.
 
+
 ## Installation
 Clone the repo and compile:
 ```bash
@@ -9,6 +10,7 @@ git clone https://github.com/12113-byte/holbertonschool-simple_shell.git
 cd holberton-simple_shell
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
+
 
 ## Usage
 
@@ -22,6 +24,7 @@ Or non-interactive mode:
 echo "ls -la" | ./hsh
 ```
 
+
 ## Features
 
 - Displays a prompt and waits for user input
@@ -31,6 +34,7 @@ echo "ls -la" | ./hsh
 - Implements built-in commands: `exit` and `env`
 - Handles End-Of-File (Ctrl+D)
 - Custom error handling
+
 
 ## File Structure
 
@@ -50,15 +54,21 @@ echo "ls -la" | ./hsh
 | `trim_whitespace.c` | Removes leading/trailing whitespace |
 | `shell.h` | Header file with function prototypes |
 
+
 ## Built-in Commands
 
 - `exit` - Exit the shell
 - `env` - Print current environment variables
 
+
 ## Exit Codes
-0 - command executed successfully
-127 - command not found
-EXIT_FAILURE - fork or memory allocation error
+
+| Code | Description |
+|------|-------------|
+| `0` | Command executed successfully |
+| `127` | Command not found |
+| Other | Fork or memory allocation error |
+
 
 ## EXAMPLES
 
@@ -100,6 +110,7 @@ TERM_PROGRAM_VERSION=1.75.1
 ...
 
 :) exit
+
 
 ## Authors
 
