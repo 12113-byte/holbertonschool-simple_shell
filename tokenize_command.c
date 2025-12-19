@@ -15,16 +15,27 @@ char **tokenize_command(char *command)
 	int i = 0;
 
 	if (command == NULL || command[0] == '\0')
-		return (NULL);
-
+		{
+			return (NULL);
+		}
 	argv = malloc(sizeof(char *) * MAX_TOKENS);
 	if (argv == NULL)
-		return (NULL);
-
+		{
+			return (NULL);
+		}
 	token = strtok(command, " \t");
 	while (token != NULL && i < MAX_TOKENS - 1)
 	{
-		argv[i] = token;
+		argv[i] = strdup(token);
+		if (argv[i] == NULL)
+		{
+			for (j = 0; j < i; j++)
+			{
+				free(argv[j]);
+			}
+			free(argv);
+			return (NULL);
+		}
 		i++;
 		token = strtok(NULL, " \t");
 	}
@@ -39,7 +50,15 @@ char **tokenize_command(char *command)
  */
 void free_tokens(char **tokens)
 {
+	int i;
+
 	if (tokens == NULL)
-		return;
+		{
+			return;
+		}
+		for (i = 0; tokens[i]; i++)
+		{
+			free(tokens[i]);
+		}
 	free(tokens);
 }
