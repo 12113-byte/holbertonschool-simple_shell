@@ -16,6 +16,16 @@ int execute_command(char *command, char *prog_name)
 	int status;
 
 	argv = tokenize_command(command);
+	
+	/* Debug*/
+	fprintf(stderr, "DEBUG: command = '%s'\n", command);
+	fprintf(stderr, "DEBUG: argv[0] = '%s'\n", argv[0]);
+	if (argv[1])    
+	{
+		fprintf(stderr, "DEBUG: argv[1] ='%s'\n", argv[1]);
+	}
+	/* END DEBUG */
+	
 	if (argv == NULL || argv[0] == NULL)
 	{
 		return (0);
@@ -44,7 +54,7 @@ int execute_command(char *command, char *prog_name)
 	if (pid == 0)
 	{
 		execve(full_path, argv, environ);
-		perror("Failed to execute program");
+		perror(argv[0]);
 		free(full_path);
 		free_tokens(argv);
 		exit(EXIT_FAILURE);
@@ -60,5 +70,5 @@ int execute_command(char *command, char *prog_name)
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 
-	return (0);
+	return (1);
 }

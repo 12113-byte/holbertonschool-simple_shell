@@ -36,8 +36,9 @@ int main(int ac, char **av)
 		if (nread == -1)
 		{
 			if (interactive)
-                          /* print a newline to make terminal look cleaner */
+            {              /* print a newline to make terminal look cleaner */
 				write(STDOUT_FILENO, "\n", 1);
+			}
 			break;
 		}
 		
