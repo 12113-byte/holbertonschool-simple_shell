@@ -16,16 +16,7 @@ int execute_command(char *command, char *prog_name)
 	int status;
 
 	argv = tokenize_command(command);
-	
-	/* Debug*/
-	fprintf(stderr, "DEBUG: command = '%s'\n", command);
-	fprintf(stderr, "DEBUG: argv[0] = '%s'\n", argv[0]);
-	if (argv[1])    
-	{
-		fprintf(stderr, "DEBUG: argv[1] ='%s'\n", argv[1]);
-	}
-	/* END DEBUG */
-	
+		
 	if (argv == NULL || argv[0] == NULL)
 	{
 		return (0);
