@@ -11,14 +11,20 @@ extern char **environ;
 int execute_command(char *command, char *prog_name)
 {
 	pid_t pid;
-	char **argv;
-	char *full_path;
+	char **argv, *full_path, *command_copy;
 	int status;
 
-	argv = tokenize_command(command);
-		
+/* Copy, because tokenize_command modifies the string*/
+	command_copy = strdup(command);
+	if (command_copy == NULL)
+{
+	return (0);
+}
+	argv = tokenize_command(command_copy);
+
 	if (argv == NULL || argv[0] == NULL)
 	{
+		free(command_copy);
 		return (0);
 	}
 
@@ -28,6 +34,7 @@ int execute_command(char *command, char *prog_name)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n", prog_name, argv[0]);
 		free_tokens(argv);
+		free(command_copy);
 		return (127); /* Return 127 for command not found */
 	}
 
@@ -38,6 +45,7 @@ int execute_command(char *command, char *prog_name)
 		perror(prog_name);
 		free(full_path);
 		free_tokens(argv);
+		free(command_copy);
 		exit(EXIT_FAILURE);
 	}
 
@@ -48,6 +56,7 @@ int execute_command(char *command, char *prog_name)
 		perror(argv[0]);
 		free(full_path);
 		free_tokens(argv);
+		free(command_copy);
 		exit(EXIT_FAILURE);
 	}
 
@@ -56,6 +65,7 @@ int execute_command(char *command, char *prog_name)
 	waitpid(pid, &status, 0);
 	free(full_path);
 	free_tokens(argv);
+	free(command_copy);
 
 	/* Return child's exit status */
 	if (WIFEXITED(status))
