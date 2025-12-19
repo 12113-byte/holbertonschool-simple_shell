@@ -33,15 +33,11 @@ int execute_command(char *command, char *prog_name, char **env)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror(prog_name);
-		free(full_path);
-		free_tokens(argv);
-		free(command_copy);
-		exit(EXIT_FAILURE);
+		fork_error_handling(prog_name, full_path, argv, command_copy);
 	}
 	if (pid == 0) /* only child enters this block */
 	{
-		run_child(full_path, argv, env, prog_name, command_copy);
+		run_child(full_path, argv, env, command_copy);
 	}
 	/*parent needs to wait for child to finish, then display the prompt again*/
 	waitpid(pid, &status, 0);

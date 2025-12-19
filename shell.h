@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+void fork_error_handling(char *prog_name, char *full_path, char **argv, char *command_copy);
 void display_prompt(void);
 ssize_t read_command(char **buffer, size_t *bufsize);
 int execute_command(char *command, char *prog_name, char **env);
@@ -21,6 +22,6 @@ char *get_path(char **env);
 char *path_check(char *command, char **env);
 int exit_built_in(char *command);
 int env_built_in(char *command, char **env);
-void run_child(char *full_path, char **argv, char **env, char *prog_name, char *command_copy);
+void run_child(char *full_path, char **argv, char **env, char *command_copy);
 
 #endif

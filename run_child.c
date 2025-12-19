@@ -4,11 +4,9 @@
  * @full_path: full path to executable
  * @argv: array of command arguments
  * @env: environment variables array
- * @prog_name: for error messages
  * @command_copy: copy of original command string
  */
-void run_child(char *full_path, char **argv, char **env,
-		char *prog_name, char *command_copy)
+void run_child(char *full_path, char **argv, char **env, char *command_copy)
 {
 	execve(full_path, argv, env);
 	perror(argv[0]);
