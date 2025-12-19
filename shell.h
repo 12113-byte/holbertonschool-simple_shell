@@ -11,7 +11,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void fork_error_handling(char *prog_name, char *full_path, char **argv, char *command_copy);
+void fork_error_handling(char *prog_name, char *full_path,
+char **argv, char *command_copy);
 void display_prompt(void);
 ssize_t read_command(char **buffer, size_t *bufsize);
 int execute_command(char *command, char *prog_name, char **env);
