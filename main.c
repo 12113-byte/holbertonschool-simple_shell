@@ -9,7 +9,7 @@
  */
 int main(int ac, char **av)
 {
-	char *buffer = NULL;
+	char *buffer = NULL, *command_copy;
 	size_t bufsize = 0;
 	ssize_t nread;
 	int interactive;
@@ -44,11 +44,14 @@ int main(int ac, char **av)
 		
 		if (buffer[0] != '\0')
 		{
+			command_copy = strdup(buffer);
 			if (exit_built_in(buffer) == BUILTIN_EXIT)
 			{
+				free(command_copy);
 				break;
 			}
 			exit_status = execute_command(buffer, av[0]);
+			free(command_copy);
 		}		
 	}
 	free(buffer);
