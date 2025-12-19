@@ -16,5 +16,6 @@ char **tokenize_command(char *command);
 void free_tokens(char **tokens);
 char *get_path(void);
 char *path_check(char *command);
+int exit_built_in(char *command);
 
 #endif
