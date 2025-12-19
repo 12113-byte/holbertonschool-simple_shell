@@ -18,7 +18,7 @@ int exit_built_in(char *command)
 	if (strcmp(argv[0], "exit") == 0)
 	{
 		free_tokens(argv);
-		exit(BUILTIN_EXIT);
+		return(BUILTIN_EXIT);
 	}
 	free_tokens(argv);
 	return (BUILTIN_NONE);
