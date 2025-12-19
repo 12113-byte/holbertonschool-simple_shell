@@ -9,21 +9,51 @@ git clone https://github.com/12113-byte/holbertonschool-simple_shell.git
 cd holberton-simple_shell
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
+
+## Usage
+
+Run the shell in interactive mode:
+```bash
+./hsh
+```
+
+Or non-interactive mode:
+```bash
+echo "ls -la" | ./hsh
+```
+
+## Features
+
+- Displays a prompt and waits for user input
+- Executes commands with arguments
+- Handles commands with full path (e.g., `/bin/ls`)
+- Searches for commands in PATH
+- Implements built-in commands: `exit` and `env`
+- Handles End-Of-File (Ctrl+D)
+- Custom error handling
+
 ## File Structure
 
-main.c - entry point of the shell
-execute_command.c - executes commands using fork and execve
-path_check.c - searches for the command in the directories listed in PATH
-tokenize_command.c - splits a command string into arguments
-built_in.c - implements the built-ins exit and env
-shell.h - header file with the prototypes of the functions
-display_prompt.c - displays the prompt ":) "
-env_built_in.c - prints current environment variables
-fork_error_handling - handles fork failure
-get_path - gets the PATH environment variable
-read_command - reads a command line from stdin
-run_child - executes command in child process
-trim_whitespace - removes leading and trailing whitespaces
+| File | Description |
+|------|-------------|
+| `main.c` | Entry point of the shell |
+| `execute_command.c` | Executes commands using fork and execve |
+| `path_check.c` | Searches for commands in PATH directories |
+| `tokenize_command.c` | Splits command string into arguments |
+| `built_in.c` | Implements built-in commands (exit) |
+| `env_built_in.c` | Implements env built-in command |
+| `display_prompt.c` | Displays the shell prompt `:) ` |
+| `read_command.c` | Reads command line from stdin |
+| `fork_error_handling.c` | Handles fork failures |
+| `run_child.c` | Executes command in child process |
+| `get_path.c` | Retrieves PATH environment variable |
+| `trim_whitespace.c` | Removes leading/trailing whitespace |
+| `shell.h` | Header file with function prototypes |
+
+## Built-in Commands
+
+- `exit` - Exit the shell
+- `env` - Print current environment variables
 
 ## Exit Codes
 0 - command executed successfully
@@ -71,3 +101,6 @@ TERM_PROGRAM_VERSION=1.75.1
 
 :) exit
 
+## Authors
+
+See [AUTHORS](AUTHORS) file for contributors.
