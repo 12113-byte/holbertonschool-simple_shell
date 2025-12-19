@@ -2,6 +2,7 @@
 #define SHELL_H
 #define BUILTIN_EXIT 1
 #define BUILTIN_NONE 0
+#define BUILTIN_ENV -1
 
 #include <stdio.h>
 #include <stddef.h>
@@ -19,5 +20,6 @@ void free_tokens(char **tokens);
 char *get_path(void);
 char *path_check(char *command);
 int exit_built_in(char *command);
+int env_built_in(char *command);
 
 #endif

@@ -41,7 +41,7 @@ int main(int ac, char **av)
 			}
 			break;
 		}
-		
+
 		if (buffer[0] != '\0')
 		{
 			command_copy = strdup(buffer);
@@ -50,9 +50,14 @@ int main(int ac, char **av)
 				free(command_copy);
 				break;
 			}
+			if (env_built_in(buffer) == BUILTIN_ENV)
+			{
+				free(command_copy);
+				continue;
+			}
 			exit_status = execute_command(buffer, av[0]);
 			free(command_copy);
-		}		
+		}
 	}
 	free(buffer);
 	return (exit_status);
