@@ -40,15 +40,16 @@ int main(int ac, char **av)
 				write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
-		if (exit_built_in(buffer) == BUILTIN_EXIT)
-		{
-			free(buffer);
-			break;
-		}
+		
 		if (buffer[0] != '\0')
+		{
+			if (exit_built_in(buffer) == BUILTIN_EXIT)
+			{
+				break;
+			}
 			exit_status = execute_command(buffer, av[0]);
+		}		
 	}
-
 	free(buffer);
 	return (exit_status);
 }
