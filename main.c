@@ -14,8 +14,7 @@ int main(int ac, char **av, char **env)
 	int interactive, exit_status = 0; /* Track exit status */
 	(void)ac;
 	/**
-	 * isatty(STDIN_FILENO):
-	 * Returns 1 if STDIN is connected to a terminal;
+	 * isatty(STDIN_FILENO): Returns 1 if STDIN is connected to a terminal;
 	 * Returns 0 if input comes from a pipe or file
 	 */
 	interactive = isatty(STDIN_FILENO);
@@ -26,7 +25,7 @@ int main(int ac, char **av, char **env)
 		nread = read_command(&buffer, &bufsize);
 		if (nread == -1) /*EOF detected or Ctrl+D pressed*/
 		{
-			if (interactive) /* print a newline to make terminal look cleaner */
+			if (interactive) /* print newline to look cleaner */
 				write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
