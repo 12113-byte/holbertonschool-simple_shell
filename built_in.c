@@ -1,8 +1,13 @@
 #include "shell.h"
 
 /**
- * exit_built_in -
+ * exit_built_in - exits the shell
+ * @command: string to execute
  *
+ * Handles built-in "exit" comand. Frees allocated resources,
+ * terminates shell process with status 0.
+ *
+ * Return: 0 if exit because of built-in, otherwise 1.
  */
 
 int exit_built_in(char *command)
@@ -26,7 +31,7 @@ int exit_built_in(char *command)
 	{
 		free_tokens(argv);
 		free(command_copy);
-		return(BUILTIN_EXIT);
+		return (BUILTIN_EXIT);
 	}
 	free_tokens(argv);
 	free(command_copy);

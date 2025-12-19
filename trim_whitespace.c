@@ -26,3 +26,4 @@ char *trim_whitespace(char *str)
 
 	return (str);
 }
+

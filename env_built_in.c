@@ -1,12 +1,17 @@
 #include "shell.h"
 
 /**
- * env_built_in -
+ * env_built_in - prints current environment variables
+ * @command: input command string
+ * @env: environment variable array
  *
+ * Implementation of "env" built-in. Iterates over global environ array
+ * and prints each variable to standard output
+ *
+ * Return: 0 on success
  */
-extern char **environ;
 
-int env_built_in(char *command)
+int env_built_in(char *command, char **env)
 {
 	char **argv, *command_copy;
 	int i = 0;
@@ -26,14 +31,14 @@ int env_built_in(char *command)
 
 	if (strcmp(argv[0], "env") == 0)
 	{
-		while (environ[i] != NULL)
+		while (env[i] != NULL)
 		{
-			printf("%s\n", environ[i]);
+			printf("%s\n", env[i]);
 			i++;
 		}
 		free_tokens(argv);
 		free(command_copy);
-		return(BUILTIN_ENV);
+		return (BUILTIN_ENV);
 	}
 	free_tokens(argv);
 	free(command_copy);

@@ -13,13 +13,13 @@
 
 void display_prompt(void);
 ssize_t read_command(char **buffer, size_t *bufsize);
-int execute_command(char *command, char *prog_name);
+int execute_command(char *command, char *prog_name, char **env);
 char *trim_whitespace(char *str);
 char **tokenize_command(char *command);
 void free_tokens(char **tokens);
-char *get_path(void);
-char *path_check(char *command);
+char *get_path(char **env);
+char *path_check(char *command, char **env);
 int exit_built_in(char *command);
-int env_built_in(char *command);
+int env_built_in(char *command, char **env);
 
 #endif

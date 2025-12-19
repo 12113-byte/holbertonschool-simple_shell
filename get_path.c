@@ -1,24 +1,25 @@
 #include "shell.h"
 
 /**
- * get_path - 
- * Return:
+ * get_path - gets the PATH environment variable
+ * @env: environment variables array
+ *
+ * Return: Pointer to PATH string, or NULL if not set;
+ * used by path_check to search for executable commands
  */
 
-extern char **environ;
-
-char *get_path(void)
+char *get_path(char **env)
 {
 	int i = 0, j;
 	char path_array[] = "PATH=";
 	char *path;
 
-	while (environ[i] != NULL)
+	while (env[i] != NULL)
 	{
 		/* do the first 5 characters match PATH= */
 		for (j = 0; j < 5; j++)
 		{
-			if (environ[i][j] != path_array[j])
+			if (env[i][j] != path_array[j])
 			{
 				/* no match found */
 				break;
@@ -27,11 +28,11 @@ char *get_path(void)
 		if (j == 5)
 		{
 			/* PATH= matched, return pointer after '=' */
-			path = environ[i] + 5;
-			return(path);
+			path = env[i] + 5;
+			return (path);
 		}
 		i++; /* move to next environ variable */
 	}
-	return(NULL);
+	return (NULL);
 }
 

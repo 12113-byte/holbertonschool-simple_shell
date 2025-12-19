@@ -22,8 +22,8 @@ ssize_t read_command(char **buffer, size_t *bufsize)
 		(*buffer)[nread - 1] = '\0';
 
 	trimmed = trim_whitespace(*buffer);
-	/* if trimmed not equal to *buffer, it means space has been trimmed,
-	   use memmove to copy bytes from trimmed location to buffer location */
+	/* if trimmed not equal to *buffer, it means space has been trimmed,*/
+	/*   use memmove to copy bytes from trimmed location to buffer location */
 	if (trimmed != *buffer)
 		memmove(*buffer, trimmed, strlen(trimmed) + 1);
 
