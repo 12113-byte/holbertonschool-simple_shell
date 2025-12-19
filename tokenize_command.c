@@ -12,7 +12,7 @@ char **tokenize_command(char *command)
 {
 	char **argv;
 	char *token;
-	int i = 0;
+	int i = 0, j;
 
 	if (command == NULL || command[0] == '\0')
 		{
